@@ -10,6 +10,9 @@ public class Tunnel : MonoBehaviour
     [SerializeField]
     private Transform[] tunnelZones;
 
+    [SerializeField]
+    private GameObject arrow;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,15 +30,20 @@ public class Tunnel : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             player.canMove = false;
-            StartCoroutine(TunnelCoroutine());
-        }       
+            StartCoroutine(TunnelCoroutine(player.gameObject));
+        }
+        if(other.CompareTag("Arrow"))
+        {
+            arrow = other.gameObject;
+            StartCoroutine(TunnelCoroutine(arrow));
+        }
     }
 
-    private IEnumerator TunnelCoroutine()
+    private IEnumerator TunnelCoroutine(GameObject objEnter)
     {
         for(int i = 0; i < tunnelZones.Length; i++)
         {
-            player.gameObject.transform.position = tunnelZones[i].position + new Vector3(0, player.transform.localScale.y / 2, 0);
+            objEnter.gameObject.transform.position = tunnelZones[i].position + new Vector3(0, player.transform.localScale.y / 2, 0);
             yield return new WaitForSecondsRealtime(0.2f);
         }
         player.canMove = true;

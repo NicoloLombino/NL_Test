@@ -7,7 +7,13 @@ public class NaconPlayer : MonoBehaviour
     CharacterController cc;
 
     [SerializeField]
+    private GameObject body;
+    [SerializeField]
     private float movementOffset;
+    [SerializeField]
+    private GameObject arrowPrefab;
+    [SerializeField]
+    private Transform arrowShooter;
 
     internal bool canMove = true;
 
@@ -23,7 +29,7 @@ public class NaconPlayer : MonoBehaviour
             ReadMovementKey2();
             //cc.Move(Vector3.down * 10 * Time.deltaTime);
             //cc.Move(-transform.up * 10);
-            //ReadArrowKey();
+            ReadArrowKey();
         }
 
     }
@@ -84,21 +90,29 @@ public class NaconPlayer : MonoBehaviour
 
     private void ReadArrowKey()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            transform.position += new Vector3(0, 0, movementOffset);
+
+            RotateAndShoot(0);
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.J))
         {
-            transform.position += new Vector3(-movementOffset, 0, 0);
+            RotateAndShoot(-90);
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.K))
         {
-            transform.position += new Vector3(0, 0, -movementOffset);
+            RotateAndShoot(180);
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            transform.position += new Vector3(movementOffset, 0, 0);
+            RotateAndShoot(90);
         }
+    }
+
+    private void RotateAndShoot(float angle)
+    {
+        body.transform.localEulerAngles = new Vector3(0, angle, 0);
+        GameObject arrow = Instantiate(arrowPrefab, arrowShooter.position, arrowShooter.rotation);
+
     }
 }
