@@ -9,6 +9,8 @@ public class Tunnel : MonoBehaviour
 
     [SerializeField]
     private Transform[] tunnelZones;
+    [SerializeField]
+    private Collider tunnelEndZoneCol;
 
     [SerializeField]
     private GameObject arrow;
@@ -35,17 +37,25 @@ public class Tunnel : MonoBehaviour
         if(other.CompareTag("Arrow"))
         {
             arrow = other.gameObject;
+            other.gameObject.GetComponent<Arrow>().speed = 0;
             StartCoroutine(TunnelCoroutine(arrow));
         }
     }
 
     private IEnumerator TunnelCoroutine(GameObject objEnter)
     {
-        for(int i = 0; i < tunnelZones.Length; i++)
+        tunnelEndZoneCol.enabled = false;
+        yield return new WaitForSecondsRealtime(0.2f);
+        for (int i = 0; i < tunnelZones.Length; i++)
         {
-            objEnter.gameObject.transform.position = tunnelZones[i].position + new Vector3(0, player.transform.localScale.y / 2, 0);
+            objEnter.transform.position = tunnelZones[i].position + new Vector3(0, player.transform.localScale.y, 0);
             yield return new WaitForSecondsRealtime(0.2f);
         }
         player.canMove = true;
+        if(arrow)
+        {
+            arrow.gameObject.GetComponent<Arrow>().speed = arrow.gameObject.GetComponent<Arrow>().startingSpeed;
+        }
+        tunnelEndZoneCol.enabled = true;
     }
 }

@@ -5,22 +5,22 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     [SerializeField]
-    private float speed;
+    internal float speed;
     [SerializeField]
     private Rigidbody rb;
 
+    internal float startingSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        startingSpeed = speed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //transform.Translate(transform.forward * speed * Time.deltaTime);/* += new Vector3(0, 0, speed * Time.deltaTime);*/
-        rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Impulse);
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -64,35 +64,43 @@ public class NaconPlayer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            CheckCollisionAndMove(transform.forward);
+            CheckCollisionAndMove(transform.forward, 0);
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            CheckCollisionAndMove(-transform.right);
+            CheckCollisionAndMove(-transform.right, -90);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            CheckCollisionAndMove(-transform.forward);
+            CheckCollisionAndMove(-transform.forward, 180);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            CheckCollisionAndMove(transform.right);
+            CheckCollisionAndMove(transform.right, 90);
         }
     }
 
-    private void CheckCollisionAndMove(Vector3 direction)
+    private void CheckCollisionAndMove(Vector3 direction, float rotY)
     {
-        if (!Physics.Raycast(transform.position, direction, out RaycastHit hit, 2.0f, LayerMask.GetMask("Wall")))
+        if (body.transform.eulerAngles.y != rotY)
+        {
+            body.transform.eulerAngles = new Vector3(0, rotY, 0);
+        }
+        if (!Physics.Raycast(transform.position, direction, out RaycastHit hit, 2f, LayerMask.GetMask("Wall")))
         {
             transform.position += direction * movementOffset;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(transform.position, body.transform.forward * 2f);
     }
 
     private void ReadArrowKey()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-
             RotateAndShoot(0);
         }
         if (Input.GetKeyDown(KeyCode.J))
@@ -112,7 +120,7 @@ public class NaconPlayer : MonoBehaviour
     private void RotateAndShoot(float angle)
     {
         body.transform.localEulerAngles = new Vector3(0, angle, 0);
-        GameObject arrow = Instantiate(arrowPrefab, arrowShooter.position, arrowShooter.rotation);
+        GameObject arrow = Instantiate(arrowPrefab, arrowShooter.position, body.transform.rotation);
 
     }
 }
