@@ -8,7 +8,7 @@ public class GameManager: MonoBehaviour
     private List<Cell> cells = new List<Cell>();
 
     [SerializeField]
-    private List<CellTile> tiles = new List<CellTile>();
+    private List<Tile> tiles = new List<Tile>();
 
     public void AddCellInList(Cell cell)
     {
