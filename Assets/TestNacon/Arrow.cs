@@ -29,5 +29,10 @@ public class Arrow : MonoBehaviour
         {
             Destroy(other);
         }
+
+        if(other.gameObject.layer == 8)
+        {
+            Destroy(gameObject);
+        }
     }
 }

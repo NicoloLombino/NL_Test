@@ -11,6 +11,8 @@ public class Tunnel : MonoBehaviour
     private Transform[] tunnelZones;
     [SerializeField]
     private Collider tunnelEndZoneCol;
+    [SerializeField]
+    private Vector3 endRotation;
 
     [SerializeField]
     private GameObject arrow;
@@ -30,7 +32,8 @@ public class Tunnel : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
-        {
+        {        
+            StopAllCoroutines();
             player.canMove = false;
             StartCoroutine(TunnelCoroutine(player.gameObject));
         }
@@ -51,10 +54,15 @@ public class Tunnel : MonoBehaviour
             objEnter.transform.position = tunnelZones[i].position + new Vector3(0, player.transform.localScale.y, 0);
             yield return new WaitForSecondsRealtime(0.2f);
         }
-        player.canMove = true;
         if(arrow)
         {
             arrow.gameObject.GetComponent<Arrow>().speed = arrow.gameObject.GetComponent<Arrow>().startingSpeed;
+            arrow.transform.eulerAngles = endRotation;
+        }
+        else
+        {
+            player.body.transform.eulerAngles = endRotation;
+            player.canMove = true;
         }
         tunnelEndZoneCol.enabled = true;
     }

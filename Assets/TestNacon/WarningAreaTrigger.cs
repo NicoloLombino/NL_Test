@@ -18,11 +18,29 @@ public class WarningAreaTrigger : MonoBehaviour
     [SerializeField]
     private GameObject warningPanel;
 
+    private GameManager gameManager;
+
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        switch (area)
+        {
+            case Area.mold:
+                warningPanel = gameManager.moldPanel;
+                break;
+            case Area.teleport:
+                warningPanel = gameManager.teleportPanel;
+                break;
+            case Area.monster:
+                warningPanel = gameManager.monsterPanel;
+                break;
+        }
+    }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

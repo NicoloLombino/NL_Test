@@ -16,7 +16,7 @@ public class Tile : MonoBehaviour
 
     [Header("tile Stats")]
     [SerializeField]
-    private bool isFull;
+    internal bool isFull;
 
     // Start is called before the first frame update
     void Start()

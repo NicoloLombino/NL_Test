@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 3484578172165636578}
   - component: {fileID: 1711159137386345768}
   - component: {fileID: 5256808991352268036}
+  - component: {fileID: 9038765697890545280}
+  - component: {fileID: 6335525803868769003}
   m_Layer: 9
   m_Name: StraightUpDown
   m_TagString: Untagged
@@ -122,3 +124,29 @@ MonoBehaviour:
   - {fileID: -8593492793615726173, guid: 0c8db3d505ec3c1428b0ee497270578d, type: 3}
   - {fileID: 5256808991352268036}
   isFull: 0
+--- !u!65 &9038765697890545280
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918662148882437373}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2, y: 4, z: 1}
+  m_Center: {x: 0.5, y: 0, z: 0}
+--- !u!65 &6335525803868769003
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918662148882437373}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2, y: 4, z: 1}
+  m_Center: {x: -0.5, y: 0, z: 0}
